@@ -2,12 +2,12 @@ package fuzz
 
 import (
 	"encoding/json"
-	"os"
-	"io/ioutil"
-	"time"
-	"math/rand"
-	"math/big"
 	"fmt"
+	"io/ioutil"
+	"math/big"
+	"math/rand"
+	"os"
+	"time"
 )
 var (
 	count = 0
@@ -30,6 +30,7 @@ func toJsonStr(v interface{})([]byte){
 }
 func readFile(path string)([]byte,error){
 	file,err:=os.Open(path)
+	defer file.Close()
 	if err!=nil{
 		return nil,err
 	}

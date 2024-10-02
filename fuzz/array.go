@@ -1,13 +1,13 @@
 package fuzz
 
 import (
-	"regexp"
-	"strings"
-	"fmt"
-	"strconv"
-	"os"
-	"io"
 	"encoding/json"
+	"fmt"
+	"io"
+	"os"
+	"regexp"
+	"strconv"
+	"strings"
 )
 var fixReg = regexp.MustCompile("^(.*)\\[([\\d]+)\\]+$")
 var DynReg = regexp.MustCompile("^(.*)\\[\\].*$")
@@ -62,6 +62,7 @@ func (f *FixedArray) fuzz() ([]interface{},error){
 }
 func (f*FixedArray) SetOstream(file string){
 	if ostream ,err := os.OpenFile(file,os.O_CREATE|os.O_APPEND|os.O_RDWR,0666);err!=nil{
+		defer ostream.Close()
 		fmt.Printf("%s",FILE_OPEN_ERROR(err))
 	}else{
 		f.ostream = io.Writer(ostream)
